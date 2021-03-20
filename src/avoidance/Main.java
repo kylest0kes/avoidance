@@ -9,8 +9,7 @@ import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import javafx.scene.layout.Pane;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class Main extends Application {
 
@@ -19,16 +18,23 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("avoidance.fxml"));
         // create ship and set size
         Avatar avatar = new Avatar(150, 100);
-        Enemy enemy = new Enemy(40, 40);
+        List<Enemy> enemies = new ArrayList<>();
+        for (int i = 0; i < 6; i++){
+            Random random = new Random();
+            Enemy enemy = new Enemy(random.nextInt(100), random.nextInt(100));
+            enemies.add(enemy);
+        }
 
         //create pane set size and put ship in pane
         Pane pane = new Pane();
         pane.setPrefSize(600, 400);
         pane.getChildren().add(avatar.getCharacter());
-        pane.getChildren().add(enemy.getCharacter());
+        enemies.forEach(enemy -> pane.getChildren().add(enemy.getCharacter()));
 
-        enemy.turnRight();
-        enemy.accelerate();
+        enemies.forEach(enemy -> {
+            enemy.turnRight();
+            enemy.accelerate();
+        });
 
         //init scene and set scene to the stage, and other attrs
         Scene scene = new Scene(pane);
@@ -61,11 +67,13 @@ public class Main extends Application {
                 }
 
                 avatar.move();
-                enemy.move();
+                enemies.forEach(enemy -> enemy.move());
 
-                if (avatar.collide(enemy)) {
-                    stop();
-                }
+                enemies.forEach(enemy -> {
+                    if (avatar.collide(enemy)) {
+                        stop();
+                    }
+                });
             }
 
         }.start();
