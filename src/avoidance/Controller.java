@@ -1,4 +1,4 @@
-package sample;
+package avoidance;
 
 public class Controller {
 }
