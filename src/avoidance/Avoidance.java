@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.scene.layout.Pane;
 
@@ -15,6 +16,8 @@ public class Avoidance extends Application {
 
     public static int W = 600;
     public static int H = 400;
+    long startTime = System.currentTimeMillis();
+
 
     @Override
     public void start(Stage stage) throws Exception{
@@ -28,9 +31,11 @@ public class Avoidance extends Application {
             enemies.add(enemy);
         }
 
-        //create pane set size and put ship in pane
+        //create pane set size and put elements in pane
         Pane pane = new Pane();
+        Text score = new Text(10, 20, "Time: ");
         pane.setPrefSize(W, H);
+        pane.getChildren().add(score);
         pane.getChildren().add(avatar.getCharacter());
         enemies.forEach(enemy -> pane.getChildren().add(enemy.getCharacter()));
 
@@ -77,6 +82,11 @@ public class Avoidance extends Application {
                         stop();
                     }
                 });
+                long elapsedTime = System.currentTimeMillis() - startTime;
+                long timeScore = elapsedTime / 1000;
+
+                score.setText("Time: " + timeScore);
+
             }
 
         }.start();
