@@ -1,7 +1,6 @@
 package avoidance;
 
 import javafx.scene.shape.Polygon;
-
 import java.util.Random;
 
 public class Enemy extends Character{

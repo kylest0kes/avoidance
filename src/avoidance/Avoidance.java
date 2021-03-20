@@ -17,15 +17,16 @@ public class Avoidance extends Application {
     public static int W = 600;
     public static int H = 400;
     long startTime = System.currentTimeMillis();
-
+    boolean running = false;
 
     @Override
     public void start(Stage stage) throws Exception{
+        running = true;
         Parent root = FXMLLoader.load(getClass().getResource("avoidance.fxml"));
         // create ship and set size
         Avatar avatar = new Avatar(150, 100);
         List<Enemy> enemies = new ArrayList<>();
-        for (int i = 0; i < 15; i++){
+        for (int i = 0; i < 20; i++){
             Random random = new Random();
             Enemy enemy = new Enemy(random.nextInt(100), random.nextInt(100));
             enemies.add(enemy);
@@ -44,8 +45,14 @@ public class Avoidance extends Application {
             enemy.accelerate();
         });
 
+        Pane gameOverPane = new Pane();
+        gameOverPane.setPrefSize(W, H);
+        Text gameOverText = new Text(150, 100, "Game Over");
+
+
         //init scene and set scene to the stage, and other attrs
         Scene scene = new Scene(pane);
+        Scene gameOverScene = new Scene(gameOverPane);
 
         //key events in the scene
         Map<KeyCode, Boolean> pressedKeys = new HashMap<>();
@@ -74,18 +81,24 @@ public class Avoidance extends Application {
                     avatar.accelerate();
                 }
 
+                long elapsedTime = System.currentTimeMillis() - startTime;
+                long timeScore = elapsedTime / 1000;
+
+                score.setText("Time: " + timeScore);
+
                 avatar.move();
                 enemies.forEach(Enemy::move);
 
                 enemies.forEach(enemy -> {
                     if (avatar.collide(enemy)) {
+                        running = false;
                         stop();
+                        gameOverPane.getChildren().add(gameOverText);
+                        stage.setScene(gameOverScene);
+                        stage.show();
                     }
                 });
-                long elapsedTime = System.currentTimeMillis() - startTime;
-                long timeScore = elapsedTime / 1000;
 
-                score.setText("Time: " + timeScore);
 
             }
 
