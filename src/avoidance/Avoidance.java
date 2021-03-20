@@ -11,7 +11,10 @@ import javafx.scene.layout.Pane;
 
 import java.util.*;
 
-public class Main extends Application {
+public class Avoidance extends Application {
+
+    public static int W = 600;
+    public static int H = 400;
 
     @Override
     public void start(Stage stage) throws Exception{
@@ -19,7 +22,7 @@ public class Main extends Application {
         // create ship and set size
         Avatar avatar = new Avatar(150, 100);
         List<Enemy> enemies = new ArrayList<>();
-        for (int i = 0; i < 10; i++){
+        for (int i = 0; i < 15; i++){
             Random random = new Random();
             Enemy enemy = new Enemy(random.nextInt(100), random.nextInt(100));
             enemies.add(enemy);
@@ -27,7 +30,7 @@ public class Main extends Application {
 
         //create pane set size and put ship in pane
         Pane pane = new Pane();
-        pane.setPrefSize(600, 400);
+        pane.setPrefSize(W, H);
         pane.getChildren().add(avatar.getCharacter());
         enemies.forEach(enemy -> pane.getChildren().add(enemy.getCharacter()));
 
@@ -67,7 +70,7 @@ public class Main extends Application {
                 }
 
                 avatar.move();
-                enemies.forEach(enemy -> enemy.move());
+                enemies.forEach(Enemy::move);
 
                 enemies.forEach(enemy -> {
                     if (avatar.collide(enemy)) {

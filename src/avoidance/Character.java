@@ -32,6 +32,22 @@ public abstract class Character {
     public void move() {
         this.character.setTranslateX(this.character.getTranslateX() + this.movement.getX());
         this.character.setTranslateY(this.character.getTranslateY() + this.movement.getY());
+
+        if (this.character.getTranslateX() < 0) {
+            this.character.setTranslateX(this.character.getTranslateX() + Avoidance.W);
+        }
+
+        if (this.character.getTranslateX() > Avoidance.W) {
+            this.character.setTranslateX(this.character.getTranslateX() % Avoidance.W);
+        }
+
+        if (this.character.getTranslateY() < 0) {
+            this.character.setTranslateY(this.character.getTranslateY() + Avoidance.H);
+        }
+
+        if (this.character.getTranslateY() > Avoidance.H) {
+            this.character.setTranslateY(this.character.getTranslateY() % Avoidance.H);
+        }
     }
 
     public void accelerate() {
