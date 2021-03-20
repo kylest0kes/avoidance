@@ -50,6 +50,10 @@ public class Main extends Application {
                     avatar.turnRight();
                 }
 
+                if (pressedKeys.getOrDefault(KeyCode.UP, false)) {
+                    avatar.accelerate();
+                }
+
                 avatar.move();
             }
 

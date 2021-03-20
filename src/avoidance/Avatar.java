@@ -32,4 +32,14 @@ public class Avatar {
         this.avatar.setTranslateX(this.avatar.getTranslateX() + this.movement.getX());
         this.avatar.setTranslateY(this.avatar.getTranslateY() + this.movement.getY());
     }
+
+    public void accelerate() {
+        double changeX = Math.cos(Math.toRadians(this.avatar.getRotate()));
+        double changeY = Math.sin(Math.toRadians(this.avatar.getRotate()));
+
+        changeX *= 0.05;
+        changeY *= 0.05;
+
+        this.movement = this.movement.add(changeX, changeY);
+    }
 }
