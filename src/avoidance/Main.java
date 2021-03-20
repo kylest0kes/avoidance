@@ -19,7 +19,7 @@ public class Main extends Application {
         // create ship and set size
         Avatar avatar = new Avatar(150, 100);
         List<Enemy> enemies = new ArrayList<>();
-        for (int i = 0; i < 6; i++){
+        for (int i = 0; i < 10; i++){
             Random random = new Random();
             Enemy enemy = new Enemy(random.nextInt(100), random.nextInt(100));
             enemies.add(enemy);
