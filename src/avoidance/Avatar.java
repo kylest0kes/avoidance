@@ -1,45 +1,10 @@
 package avoidance;
 
-import javafx.geometry.Point2D;
 import javafx.scene.shape.Polygon;
 
-public class Avatar {
-
-    private Polygon avatar;
-    private Point2D movement;
-
+public class Avatar extends Character {
     public Avatar(int x, int y) {
-        this.avatar = new Polygon(-5, -5, 10, 0, -5, 5);
-        this.avatar.setTranslateX(x);
-        this.avatar.setTranslateY(y);
-
-        this.movement = new Point2D(0, 0);
+        super(new Polygon(-15, -15, 20, 0, -15, 15), x, y);
     }
 
-    public Polygon getAvatar() {
-        return avatar;
-    }
-
-    public void turnLeft() {
-        this.avatar.setRotate(this.avatar.getRotate() - 5);
-    }
-
-    public void turnRight() {
-        this.avatar.setRotate(this.avatar.getRotate() + 5);
-    }
-
-    public void move() {
-        this.avatar.setTranslateX(this.avatar.getTranslateX() + this.movement.getX());
-        this.avatar.setTranslateY(this.avatar.getTranslateY() + this.movement.getY());
-    }
-
-    public void accelerate() {
-        double changeX = Math.cos(Math.toRadians(this.avatar.getRotate()));
-        double changeY = Math.sin(Math.toRadians(this.avatar.getRotate()));
-
-        changeX *= 0.05;
-        changeY *= 0.05;
-
-        this.movement = this.movement.add(changeX, changeY);
-    }
 }

@@ -19,11 +19,17 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("avoidance.fxml"));
         // create ship and set size
         Avatar avatar = new Avatar(150, 100);
+        Enemy enemy = new Enemy(40, 40);
 
         //create pane set size and put ship in pane
         Pane pane = new Pane();
         pane.setPrefSize(600, 400);
-        pane.getChildren().add(avatar.getAvatar());
+        pane.getChildren().add(avatar.getCharacter());
+        pane.getChildren().add(enemy.getCharacter());
+
+        enemy.turnRight();
+        enemy.accelerate();
+
         //init scene and set scene to the stage, and other attrs
         Scene scene = new Scene(pane);
 
@@ -55,6 +61,7 @@ public class Main extends Application {
                 }
 
                 avatar.move();
+                enemy.move();
             }
 
         }.start();
