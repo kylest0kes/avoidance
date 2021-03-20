@@ -62,6 +62,10 @@ public class Main extends Application {
 
                 avatar.move();
                 enemy.move();
+
+                if (avatar.collide(enemy)) {
+                    stop();
+                }
             }
 
         }.start();
