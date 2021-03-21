@@ -5,6 +5,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -47,7 +48,13 @@ public class Avoidance extends Application {
 
         Pane gameOverPane = new Pane();
         gameOverPane.setPrefSize(W, H);
-        Text gameOverText = new Text(150, 100, "Game Over");
+        Button replayBtn = new Button("Play Again?");
+        replayBtn.setOnAction((e) -> {
+            running = true;
+            System.out.println("yup");
+        });
+
+        Button viewHighScore = new Button("View High Scores");
 
 
         //init scene and set scene to the stage, and other attrs
@@ -93,7 +100,16 @@ public class Avoidance extends Application {
                     if (avatar.collide(enemy)) {
                         running = false;
                         stop();
+                        Text gameOverText = new Text((W/2) - 25, (H/2) - 30, "Game Over");
+                        Text gameOverScore = new Text((W/2) - 29, H/2, "Final Score: " + timeScore);
                         gameOverPane.getChildren().add(gameOverText);
+                        gameOverPane.getChildren().add(gameOverScore);
+                        replayBtn.setLayoutX((W/2) - 32);
+                        replayBtn.setLayoutY((H/2) + 20);
+                        gameOverPane.getChildren().add(replayBtn);
+                        viewHighScore.setLayoutX((W/2) - 45);
+                        viewHighScore.setLayoutY((H/2) + 60);
+                        gameOverPane.getChildren().add(viewHighScore);
                         stage.setScene(gameOverScene);
                         stage.show();
                     }
