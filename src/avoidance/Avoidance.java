@@ -49,13 +49,7 @@ public class Avoidance extends Application {
         Pane gameOverPane = new Pane();
         gameOverPane.setPrefSize(W, H);
         Button replayBtn = new Button("Play Again?");
-        replayBtn.setOnAction((e) -> {
-            running = true;
-            System.out.println("yup");
-        });
-
         Button viewHighScore = new Button("View High Scores");
-
 
         //init scene and set scene to the stage, and other attrs
         Scene scene = new Scene(pane);
@@ -106,6 +100,11 @@ public class Avoidance extends Application {
                         gameOverPane.getChildren().add(gameOverScore);
                         replayBtn.setLayoutX((W/2) - 32);
                         replayBtn.setLayoutY((H/2) + 20);
+                        replayBtn.setOnAction((e) -> {
+                            //reset everything and start game over
+                            System.out.println("works");
+
+                        });
                         gameOverPane.getChildren().add(replayBtn);
                         viewHighScore.setLayoutX((W/2) - 45);
                         viewHighScore.setLayoutY((H/2) + 60);
