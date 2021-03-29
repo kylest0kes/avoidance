@@ -11,7 +11,8 @@ This a game all about avoiding things. Currently, those things are blocks. Contr
 	- Add some flare
 
 - Create High Score Scene:
-  	- Create list layout for the top 10 scores
+	- Add a text area to record name of player to record for scores
+	- Create list layout for the top 10 scores
 	- Add Main Menu Button to redirect user
 
 - Create a Main Menu Scene:

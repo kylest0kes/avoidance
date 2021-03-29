@@ -34,52 +34,77 @@ public class Avoidance extends Application {
         }
 
         //create panes
-        // main menu pane
         Pane mainMenuPane = new Pane();
-        Text sample = new Text(50, 50, "Sample");
+        Pane highScorePane = new Pane();
+        Pane gamePane = new Pane();
+        Pane gameOverPane = new Pane();
+
+        //create scenes
+        Scene mainMenuScene = new Scene(mainMenuPane);
+        Scene highScoreScene = new Scene(highScorePane);
+        Scene gameScene = new Scene(gamePane);
+        Scene gameOverScene = new Scene(gameOverPane);
+
+        //create buttons
+        Button viewHighScoreBtn = new Button("View High Scores");
+        viewHighScoreBtn.setOnAction(e -> {
+            stage.setScene(highScoreScene);
+        });
+
+        Button viewScoresBtn = new Button("View High Scores");
+        viewScoresBtn.setOnAction(e -> {
+            stage.setScene(highScoreScene);
+        });
+
+        Button replayBtn = new Button("Play Again?");
+        replayBtn.setOnAction((e) -> {
+            //reset everything and start game over
+            System.out.println("works");
+        });
+
+        Button mainMenuBtn = new Button("Main Menu");
+        mainMenuBtn.setOnAction((e) -> {
+            stage.setScene(mainMenuScene);
+        });
+
+        // main menu pane
         mainMenuPane.setPrefSize(W, H);
+        Text sample = new Text(150, 150, "On Main Menu");
         mainMenuPane.getChildren().add(sample);
+        mainMenuPane.getChildren().add(viewScoresBtn);
 
         //game pane
-        Pane pane = new Pane();
         Text score = new Text(10, 20, "Time: ");
-        pane.setPrefSize(W, H);
-        pane.getChildren().add(score);
-        pane.getChildren().add(avatar.getCharacter());
-        enemies.forEach(enemy -> pane.getChildren().add(enemy.getCharacter()));
+        gamePane.setPrefSize(W, H);
+        gamePane.getChildren().add(score);
+        gamePane.getChildren().add(avatar.getCharacter());
+        enemies.forEach(enemy -> gamePane.getChildren().add(enemy.getCharacter()));
 
         enemies.forEach(enemy -> {
             enemy.turnRight();
             enemy.accelerate();
         });
 
-        //game over pane
-        Pane gameOverPane = new Pane();
-        gameOverPane.setPrefSize(W, H);
-        Button replayBtn = new Button("Play Again?");
-        Button viewHighScore = new Button("View High Scores");
-
         //high scores pane
-        Pane highScoresPane = new Pane();
-        highScoresPane.setPrefSize(W, H);
-        Button mainMenu = new Button("Main Menu");
-        mainMenu.setOnAction((e) -> {
+        highScorePane.setPrefSize(W, H);
+        Text highScoreTestString = new Text(200, 200, "On HighScores");
+        highScorePane.getChildren().add(highScoreTestString);
+        highScorePane.getChildren().add(mainMenuBtn);
 
-        });
+        //game over pane
+        gameOverPane.setPrefSize(W, H);
+
 
         //init scene and set scene to the stage, and other attrs
-        Scene scene = new Scene(pane);
-        Scene gameOverScene = new Scene(gameOverPane);
-        Scene mainMenuScene = new Scene(mainMenuPane);
 
         //key events in the scene
         Map<KeyCode, Boolean> pressedKeys = new HashMap<>();
 
-        scene.setOnKeyPressed(event -> {
+        gameScene.setOnKeyPressed(event -> {
             pressedKeys.put(event.getCode(), Boolean.TRUE);
         });
 
-        scene.setOnKeyReleased(event -> {
+        gameScene.setOnKeyReleased(event -> {
             pressedKeys.put(event.getCode(), Boolean.FALSE);
         });
 
@@ -117,15 +142,11 @@ public class Avoidance extends Application {
                         gameOverPane.getChildren().add(gameOverScore);
                         replayBtn.setLayoutX((W/2) - 32);
                         replayBtn.setLayoutY((H/2) + 20);
-                        replayBtn.setOnAction((e) -> {
-                            //reset everything and start game over
-                            System.out.println("works");
 
-                        });
                         gameOverPane.getChildren().add(replayBtn);
-                        viewHighScore.setLayoutX((W/2) - 45);
-                        viewHighScore.setLayoutY((H/2) + 60);
-                        gameOverPane.getChildren().add(viewHighScore);
+                        viewHighScoreBtn.setLayoutX((W/2) - 45);
+                        viewHighScoreBtn.setLayoutY((H/2) + 60);
+                        gameOverPane.getChildren().add(viewHighScoreBtn);
                         stage.setScene(gameOverScene);
                         stage.show();
                     }
@@ -136,7 +157,7 @@ public class Avoidance extends Application {
 
         }.start();
 
-        stage.setScene(mainMenuScene);
+        stage.setScene(gameScene);
         stage.setTitle("Avoidance");
         stage.setResizable(false);
         stage.show();
