@@ -10,8 +10,12 @@ This a game all about avoiding things. Currently, those things are blocks. Contr
 	- Make the View High Score button go to a High Score Scene
 	- Add some flare
 
-- Create Highscore Scene and implement storage
+- Create High Score Scene:
+  	- Create list layout for the top 10 scores
+	- Add Main Menu Button to redirect user
 
-- Create a Menu screen with start game and view scores buttons
+- Create a Main Menu Scene:
+  - Start Game Button
+  - View High Scores Button
 
 - Add in the 2d art pack to replace blocks and triangle

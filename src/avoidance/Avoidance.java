@@ -33,7 +33,14 @@ public class Avoidance extends Application {
             enemies.add(enemy);
         }
 
-        //create pane set size and put elements in pane
+        //create panes
+        // main menu pane
+        Pane mainMenuPane = new Pane();
+        Text sample = new Text(50, 50, "Sample");
+        mainMenuPane.setPrefSize(W, H);
+        mainMenuPane.getChildren().add(sample);
+
+        //game pane
         Pane pane = new Pane();
         Text score = new Text(10, 20, "Time: ");
         pane.setPrefSize(W, H);
@@ -46,14 +53,24 @@ public class Avoidance extends Application {
             enemy.accelerate();
         });
 
+        //game over pane
         Pane gameOverPane = new Pane();
         gameOverPane.setPrefSize(W, H);
         Button replayBtn = new Button("Play Again?");
         Button viewHighScore = new Button("View High Scores");
 
+        //high scores pane
+        Pane highScoresPane = new Pane();
+        highScoresPane.setPrefSize(W, H);
+        Button mainMenu = new Button("Main Menu");
+        mainMenu.setOnAction((e) -> {
+
+        });
+
         //init scene and set scene to the stage, and other attrs
         Scene scene = new Scene(pane);
         Scene gameOverScene = new Scene(gameOverPane);
+        Scene mainMenuScene = new Scene(mainMenuPane);
 
         //key events in the scene
         Map<KeyCode, Boolean> pressedKeys = new HashMap<>();
@@ -119,7 +136,7 @@ public class Avoidance extends Application {
 
         }.start();
 
-        stage.setScene(scene);
+        stage.setScene(mainMenuScene);
         stage.setTitle("Avoidance");
         stage.setResizable(false);
         stage.show();
